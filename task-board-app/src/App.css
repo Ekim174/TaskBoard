@@ -39,6 +39,10 @@
     cursor: grab;
 }
 
+.taskActive {
+    background-color: aquamarine;
+}
+
 .must {
     background-color: darkred;
 }

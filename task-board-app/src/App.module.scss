@@ -5,6 +5,13 @@
   src: url("static/font/IndieFlower-Regular.ttf");
 }
 
+@font-face {
+  font-family: 'Pacifico';
+  font-style: normal;
+  font-weight: 400;
+  src: url("static/font/Pacifico-Regular.ttf");
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -23,8 +30,7 @@ h1 {
 
 .container {
   width: 100vw;
-  height: auto;
-  padding: 20px 20px 50px 20px;
+  padding: 20px 20px 40px 20px;
 }
 
 .board {
@@ -32,21 +38,35 @@ h1 {
   justify-content: center;
 }
 
-.colum-title {
-  margin-bottom: 10px;
+.columTitle {
+  position: fixed;
+  transform: translate(0px, -40px);
+  width: 20%;
+  min-width: 150px;
+  text-align: center;
+  background-color: white;
+  z-index: 5;
 }
 
-.board-row {
+.boardRow {
   flex-basis: 25%;
   min-width: 200px;
   border: 5px solid cadetblue;
   border-bottom: none;
   border-top: none;
-  padding: 5px 10px 20px 10px;
+  padding: 40px 10px 20px 10px;
   margin: 10px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  overflow-y: scroll;
+  max-height: 60vh;
+  &:first-child {
+    margin-left: 0;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
 }
 
 .task {
@@ -78,4 +98,8 @@ h1 {
 
 .could {
   background-color: darkgreen;
+}
+
+.active {
+  background-color: black;
 }
