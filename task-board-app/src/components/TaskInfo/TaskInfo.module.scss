@@ -3,13 +3,14 @@
   flex-direction: column;
   justify-content: flex-end;
   position: relative;
-  color: white;
+  color: black;
+  font-size: 16px;
+  width: 250px;
+  margin: 0 0 0 auto;
   background-color: darkgray;
   padding: 20px;
   border-radius: 8px;
-  width: 250px;
   transition: all 0.2s linear;
-  margin: 0 0 0 auto;
   animation-duration: 0.5s;
   animation-name: animate;
   animation-direction: alternate;
@@ -27,15 +28,14 @@
 }
 
 .close {
-  background-color: white;
-  color: black;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 25px;
-  border-radius: 50%;
   position: absolute;
   top: 10px;
   right: 10px;
+  width: 25px;
+  background-color: white;
+  border-radius: 50%;
   cursor: pointer;
 }

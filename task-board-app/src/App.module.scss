@@ -49,18 +49,18 @@ h1 {
 }
 
 .boardRow {
-  flex-basis: 25%;
-  min-width: 200px;
-  border: 5px solid cadetblue;
-  border-bottom: none;
-  border-top: none;
-  padding: 40px 10px 20px 10px;
-  margin: 10px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  overflow-y: scroll;
+  flex-basis: 25%;
+  min-width: 200px;
   max-height: 60vh;
+  padding: 40px 10px 20px 10px;
+  margin: 10px;
+  border: 5px solid cadetblue;
+  border-bottom: none;
+  border-top: none;
+  overflow-y: scroll;
   &:first-child {
     margin-left: 0;
   }
@@ -70,14 +70,14 @@ h1 {
 }
 
 .task {
-  color: white;
-  width: 80%;
-  height: 80px;
-  margin: 5px 0;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  color: white;
+  width: 80%;
+  height: 80px;
+  margin: 5px 0;
   border: 2px solid black;
   border-radius: 8px;
   cursor: grab;
