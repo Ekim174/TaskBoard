@@ -14,7 +14,7 @@ describe('App', () => {
     expect(screen.getByText(/DONE/i)).toBeInTheDocument()
   })
 
-  test('selected task', () => {
+  test('change selected task', () => {
     render(<App/>);
     expect(screen.queryByTestId('TaskInfo')).toBeNull()
     act(() => userEvent.click(screen.getByText(/TSK-0001/i)))
