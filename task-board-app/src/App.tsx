@@ -27,15 +27,13 @@ const getStatusType = (colum: string) => {
 
 const App:FC = () => {
 
-  const [taskList, setTaskList] = useState<Array<TaskTypes>>([]);
   const [sortedTaskList, setSortedTaskList] = useState<Array<TaskTypes>>([])
-  const [loading, setLoading] = useState(true)
   const [currentTask, setCurrentTask] = useState<TaskTypes | null>(null);
   const [selectedTask, setSelectedTask] = useState<TaskTypes | null>(null);
 
   const getTaskList = () => {
     const taskData = generateTaskData()
-    setTimeout(() => setTaskList(taskData), 3000);
+    setTimeout(() => sorting(taskData), 3000);
   }
 
   const dragOverHandler = (e: React.DragEvent<HTMLDivElement>)=> {
@@ -83,18 +81,11 @@ const App:FC = () => {
     getTaskList()
   }, []);
 
-  useEffect(() => {
-    if (taskList.length && !sortedTaskList.length) {
-      loading && setLoading(false);
-      sorting(taskList)
-    }
-  }, [taskList]);
-
   return (
     <div className={styled.container}>
       <h1>Task Board</h1>
       <div className={styled.board}>
-        {loading && <h2>Loading...</h2>}
+        {!sortedTaskList.length && <h2>Loading...</h2>}
         {sortedTaskList.length > 0 && boardColumns.map(column =>
           (<div
             key={column}
