@@ -5,6 +5,7 @@ import {Status, TaskTypes} from './App.types';
 import {boardColumns, generateTaskData} from './constants/tasksData';
 
 import styled from './App.module.scss';
+import {log} from "util";
 
 const importancePriority = {
   MUST: 1,
@@ -28,9 +29,15 @@ const getStatusType = (colum: string) => {
 const App:FC = () => {
 
   const [taskList, setTaskList] = useState<Array<TaskTypes>>([]);
+  const [sortedTaskList, setSortedTaskList] = useState<any>([])
   const [loading, setLoading] = useState(true)
   const [currentTask, setCurrentTask] = useState<TaskTypes | null>(null);
   const [selectedTask, setSelectedTask] = useState<TaskTypes | null>(null);
+
+  const getTaskList = () => {
+    const taskData = generateTaskData()
+    setTimeout(() => setTaskList(taskData), 3000);
+  }
 
   const dragOverHandler = (e: React.DragEvent<HTMLDivElement>)=> {
     e.preventDefault();
@@ -49,12 +56,12 @@ const App:FC = () => {
   const dropHandler = (e: React.DragEvent<HTMLDivElement>, column: string) => {
     e.preventDefault();
     const statusType = getStatusType(column);
-    const currentIndex = taskList.indexOf(currentTask as TaskTypes);
-    taskList[currentIndex].status = statusType as Status;
-    setTaskList([...taskList]);
+    const currentIndex = sortedTaskList.indexOf(currentTask as TaskTypes);
+    sortedTaskList[currentIndex].status = statusType as Status;
+    sorting([...sortedTaskList])
   };
 
-  const sortedList = (data: Array<TaskTypes>) => {
+  const sorting = (data: Array<TaskTypes>) => {
     const sortedList = data.sort((a: TaskTypes, b: TaskTypes): any => {
       if (a.name > b.name) {
         return 1;
@@ -70,16 +77,17 @@ const App:FC = () => {
       }
       return 0;
     })
-    setTaskList(sortedList);
+    setSortedTaskList(sortedList);
   };
 
   useEffect(() => {
-    if (!taskList.length) {
-      setTimeout(() => setTaskList(generateTaskData()), 3000);
-    }
-    if (taskList.length) {
+    getTaskList()
+  }, []);
+
+  useEffect(() => {
+    if (taskList.length && !sortedTaskList.length) {
       loading && setLoading(false);
-      sortedList(taskList);
+      sorting(taskList)
     }
   }, [taskList]);
 
@@ -88,7 +96,7 @@ const App:FC = () => {
       <h1>Task Board</h1>
       <div className={styled.board}>
         {loading && <h2>Loading...</h2>}
-        {taskList.length > 0 && boardColumns.map(column =>
+        {sortedTaskList.length > 0 && boardColumns.map(column =>
           (<div
             key={column}
             className={styled.boardRow}
@@ -97,7 +105,7 @@ const App:FC = () => {
             <div className={styled.columTitle}>
               <h2>{column}</h2>
             </div>
-              {taskList.map((task: TaskTypes) =>
+              {sortedTaskList.map((task: TaskTypes) =>
                 task.status === column &&
                 (<div
                   key={task.task_number}
