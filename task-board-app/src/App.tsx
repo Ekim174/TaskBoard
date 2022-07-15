@@ -85,35 +85,34 @@ const App:FC = () => {
     <div className={styled.container}>
       <h1>Task Board</h1>
       <div className={styled.board}>
-        {!sortedTaskList.length && <h2>Loading...</h2>}
-        {sortedTaskList.length > 0 && boardColumns.map(column =>
-          (<div
-            key={column}
-            className={styled.boardRow}
-            onDragOver={(e) => dragOverHandler(e)}
-            onDrop={(e) => dropHandler(e, column)}>
-            <div className={styled.columTitle}>
-              <h2>{column}</h2>
-            </div>
-              {sortedTaskList.map((task: TaskTypes) =>
-                task.status === column &&
-                (<div
-                  key={task.task_number}
-                  onDragOver={(e) => dragOverHandler(e)}
-                  onDragStart={(e) => dragStartHandler(task)}
-                  onDrop={(e) => dropHandler(e, column)}
-                  draggable
-                  onClick={() => selectTaskHandler(task)}
-                  className={
-                    cn(styled.task, styled[`${task.importance.toLowerCase()}`],
-                      selectedTask?.task_number === task.task_number && styled.active)
-                  }>
-                    <span>{task.task_number}</span>
-                    <span>{task.task_name}</span>
-                  </div>)
-              )}
-          </div>)
-        )}
+        {sortedTaskList.length > 0 ?
+          boardColumns.map(column =>
+            (<div
+              key={column}
+              className={styled.boardRow}
+              onDragOver={(e) => dragOverHandler(e)}
+              onDrop={(e) => dropHandler(e, column)}>
+              <div className={styled.columTitle}>
+                <h2>{column}</h2>
+              </div>
+                {sortedTaskList.map((task: TaskTypes) =>
+                  task.status === column &&
+                  (<div
+                    key={task.task_number}
+                    onDragOver={(e) => dragOverHandler(e)}
+                    onDragStart={(e) => dragStartHandler(task)}
+                    onDrop={(e) => dropHandler(e, column)}
+                    draggable
+                    onClick={() => selectTaskHandler(task)}
+                    className={
+                      cn(styled.task, styled[`${task.importance.toLowerCase()}`],
+                        selectedTask?.task_number === task.task_number && styled.active)
+                    }>
+                      <span>{task.task_number}</span>
+                      <span>{task.task_name}</span>
+                    </div>))}
+            </div>)
+          ) : (<h2>Loading...</h2>)}
       </div>
       {selectedTask && <TaskInfo task={selectedTask} onClose={() => setSelectedTask(null)}/>}
     </div>
