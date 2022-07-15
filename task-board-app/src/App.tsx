@@ -10,9 +10,9 @@ const importancePriority = {
   MUST: 1,
   SHOULD: 2,
   COULD: 3
-}
+};
 
-const statusEnum = (colum: string) => {
+const getStatusType = (colum: string) => {
   switch (colum) {
     case 'PLAN':
       return Status.PLAN;
@@ -23,31 +23,31 @@ const statusEnum = (colum: string) => {
     case 'DONE':
       return Status.DONE;
   }
-}
+};
 
 const App:FC = () => {
-  const [taskList, setTaskList] = useState<Array<TaskTypes>>([])
-  const [currentTask, setCurrentTask] = useState<TaskTypes | null>(null)
-  const [selectedTask, setSelectedTask] = useState<TaskTypes | null>(null)
+
+  const [taskList, setTaskList] = useState<Array<TaskTypes>>([]);
+  const [currentTask, setCurrentTask] = useState<TaskTypes | null>(null);
+  const [selectedTask, setSelectedTask] = useState<TaskTypes | null>(null);
 
   const dragOverHandler = (e: React.DragEvent<HTMLDivElement>)=> {
-    e.preventDefault()
+    e.preventDefault();
   };
 
   const selectTaskHandler = (task: TaskTypes) => {
-    if(!selectedTask || selectedTask.task_number !== task.task_number) {
+    if (selectedTask?.task_number !== task.task_number) {
       setSelectedTask(task);
     }
   };
 
   const dragStartHandler = (task: TaskTypes) => {
-    setCurrentTask(task)
+    setCurrentTask(task);
   };
 
-
   const dropHandler = (e: React.DragEvent<HTMLDivElement>, column: string) => {
-    e.preventDefault()
-    const statusType = statusEnum(column);
+    e.preventDefault();
+    const statusType = getStatusType(column);
     const currentIndex = taskList.indexOf(currentTask as TaskTypes);
     taskList[currentIndex].status = statusType as Status;
     setTaskList([...taskList]);
@@ -62,19 +62,19 @@ const App:FC = () => {
         return -1;
       }
       if (importancePriority[a.importance] > importancePriority[b.importance]) {
-        return 1
+        return 1;
       }
       if (importancePriority[a.importance] < importancePriority[b.importance]) {
-        return -1
+        return -1;
       }
       return 0;
     })
-    setTaskList(sortedList)
-  }
+    setTaskList(sortedList);
+  };
 
   useEffect(() => {
     !taskList.length ? sortedList(generateTaskData()) : sortedList(taskList);
-  }, [taskList])
+  }, [taskList]);
 
   return (
     <div className={styled.container}>
@@ -92,16 +92,16 @@ const App:FC = () => {
               {taskList.length && taskList.map((task: TaskTypes) =>
                 task.status === column &&
                 (<div
-                  draggable
+                  key={task.task_number}
                   onDragOver={(e) => dragOverHandler(e)}
                   onDragStart={(e) => dragStartHandler(task)}
                   onDrop={(e) => dropHandler(e, column)}
+                  draggable
                   onClick={() => selectTaskHandler(task)}
-                  key={task.task_number}
                   className={
                     cn(styled.task, styled[`${task.importance.toLowerCase()}`],
                       selectedTask?.task_number === task.task_number && styled.active
-                  )}>
+                    )}>
                     <span>{task.task_number}</span>
                     <span>{task.task_name}</span>
                   </div>)
