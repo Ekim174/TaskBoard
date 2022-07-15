@@ -28,7 +28,7 @@ const getStatusType = (colum: string) => {
 const App:FC = () => {
 
   const [taskList, setTaskList] = useState<Array<TaskTypes>>([]);
-  const [sortedTaskList, setSortedTaskList] = useState<any>([])
+  const [sortedTaskList, setSortedTaskList] = useState<Array<TaskTypes>>([])
   const [loading, setLoading] = useState(true)
   const [currentTask, setCurrentTask] = useState<TaskTypes | null>(null);
   const [selectedTask, setSelectedTask] = useState<TaskTypes | null>(null);
