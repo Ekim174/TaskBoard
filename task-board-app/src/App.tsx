@@ -5,7 +5,6 @@ import {Status, TaskTypes} from './App.types';
 import {boardColumns, generateTaskData} from './constants/tasksData';
 
 import styled from './App.module.scss';
-import {log} from "util";
 
 const importancePriority = {
   MUST: 1,
