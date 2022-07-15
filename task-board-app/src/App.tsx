@@ -59,7 +59,7 @@ const App:FC = () => {
   };
 
   const sorting = (data: Array<TaskTypes>) => {
-    const sortedList = data.sort((a: TaskTypes, b: TaskTypes): any => {
+    const sortedList = data.sort((a: TaskTypes, b: TaskTypes) => {
       if (a.name > b.name) {
         return 1;
       }
