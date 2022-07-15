@@ -12,7 +12,7 @@ export interface TaskTypes  {
 
 export enum Status {
   PLAN = 'PLAN',
-  IN_PROGRESS = 'IN_PROGRESS',
+  IN_PROGRESS = 'IN PROGRESS',
   TESTING = 'TESTING',
   DONE = 'DONE'
 }

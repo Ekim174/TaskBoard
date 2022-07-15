@@ -1,4 +1,4 @@
-export const boardColumns = ['PLAN', 'IN_PROGRESS', 'TESTING','DONE'];
+export const boardColumns = ['PLAN', 'IN PROGRESS', 'TESTING','DONE'];
 export const importanceList = ['MUST', 'SHOULD', 'COULD'];
 const taskNameList = ['Feature', 'Bug Fix', 'Update', 'Research', 'Content'];
 const nameList = [

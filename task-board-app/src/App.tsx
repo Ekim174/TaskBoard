@@ -16,7 +16,7 @@ const getStatusType = (colum: string) => {
   switch (colum) {
     case 'PLAN':
       return Status.PLAN;
-    case 'IN_PROGRESS':
+    case 'IN PROGRESS':
       return Status.IN_PROGRESS;
     case 'TESTING':
       return Status.TESTING;
@@ -28,6 +28,7 @@ const getStatusType = (colum: string) => {
 const App:FC = () => {
 
   const [taskList, setTaskList] = useState<Array<TaskTypes>>([]);
+  const [loading, setLoading] = useState(true)
   const [currentTask, setCurrentTask] = useState<TaskTypes | null>(null);
   const [selectedTask, setSelectedTask] = useState<TaskTypes | null>(null);
 
@@ -73,14 +74,21 @@ const App:FC = () => {
   };
 
   useEffect(() => {
-    !taskList.length ? sortedList(generateTaskData()) : sortedList(taskList);
+    if (!taskList.length) {
+      setTimeout(() => setTaskList(generateTaskData()), 3000);
+    }
+    if (taskList.length) {
+      loading && setLoading(false);
+      sortedList(taskList);
+    }
   }, [taskList]);
 
   return (
     <div className={styled.container}>
       <h1>Task Board</h1>
       <div className={styled.board}>
-        {boardColumns.map(column =>
+        {loading && <h2>Loading...</h2>}
+        {taskList.length > 0 && boardColumns.map(column =>
           (<div
             key={column}
             className={styled.boardRow}
@@ -89,7 +97,7 @@ const App:FC = () => {
             <div className={styled.columTitle}>
               <h2>{column}</h2>
             </div>
-              {taskList.length && taskList.map((task: TaskTypes) =>
+              {taskList.map((task: TaskTypes) =>
                 task.status === column &&
                 (<div
                   key={task.task_number}
@@ -100,8 +108,8 @@ const App:FC = () => {
                   onClick={() => selectTaskHandler(task)}
                   className={
                     cn(styled.task, styled[`${task.importance.toLowerCase()}`],
-                      selectedTask?.task_number === task.task_number && styled.active
-                    )}>
+                      selectedTask?.task_number === task.task_number && styled.active)
+                  }>
                     <span>{task.task_number}</span>
                     <span>{task.task_name}</span>
                   </div>)
