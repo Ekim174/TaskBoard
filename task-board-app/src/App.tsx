@@ -27,12 +27,12 @@ const getStatusType = (colum: string) => {
 
 const App:FC = () => {
 
-  const [sortedTaskList, setSortedTaskList] = useState<Array<TaskTypes>>([])
+  const [sortedTaskList, setSortedTaskList] = useState<Array<TaskTypes>>([]);
   const [currentTask, setCurrentTask] = useState<TaskTypes | null>(null);
   const [selectedTask, setSelectedTask] = useState<TaskTypes | null>(null);
 
   const getTaskList = () => {
-    const taskData = generateTaskData()
+    const taskData = generateTaskData();
     setTimeout(() => sorting(taskData), 3000);
   }
 
@@ -55,7 +55,7 @@ const App:FC = () => {
     const statusType = getStatusType(column);
     const currentIndex = sortedTaskList.indexOf(currentTask as TaskTypes);
     sortedTaskList[currentIndex].status = statusType as Status;
-    sorting([...sortedTaskList])
+    sorting([...sortedTaskList]);
   };
 
   const sorting = (data: Array<TaskTypes>) => {
@@ -78,7 +78,7 @@ const App:FC = () => {
   };
 
   useEffect(() => {
-    getTaskList()
+    getTaskList();
   }, []);
 
   return (
