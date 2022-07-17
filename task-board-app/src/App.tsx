@@ -37,7 +37,7 @@ const App:FC = () => {
     setTimeout(() => {
       setIsLoading(false);
       sorting(taskData);
-    }, 1000);
+    }, 2000);
   }
 
   const dragOverHandler = (e: React.DragEvent<HTMLDivElement>)=> {

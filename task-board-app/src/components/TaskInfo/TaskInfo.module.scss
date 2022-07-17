@@ -10,15 +10,20 @@
   background-color: darkgray;
   padding: 20px;
   border-radius: 8px;
-  transition: all 0.2s linear;
-  animation-duration: 0.5s;
-  animation-name: taskInfoAnimation;
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
   animation-direction: alternate;
+  animation-name: taskInfoAnimation;
 }
 
 @keyframes taskInfoAnimation {
   0% {
-    margin-right: -100%;
+    opacity: 0;
+    transform: translate(100%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
   }
 }
 
