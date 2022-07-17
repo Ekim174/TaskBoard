@@ -12,11 +12,11 @@
   border-radius: 8px;
   transition: all 0.2s linear;
   animation-duration: 0.5s;
-  animation-name: animate;
+  animation-name: taskInfoAnimation;
   animation-direction: alternate;
 }
 
-@keyframes animate {
+@keyframes taskInfoAnimation {
   0% {
     margin-right: -100%;
   }
