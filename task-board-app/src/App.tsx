@@ -33,7 +33,7 @@ const App:FC = () => {
 
   const getTaskList = () => {
     const taskData = generateTaskData();
-    setTimeout(() => sorting(taskData), 3000);
+    setTimeout(() => sorting(taskData), 2000);
   }
 
   const dragOverHandler = (e: React.DragEvent<HTMLDivElement>)=> {
