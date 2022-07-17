@@ -118,7 +118,7 @@ const App:FC = () => {
                     <span>{task.task_name}</span>
                   </div>))}
               </div>)
-            )) : (<h2>Список задач пуст.</h2>)
+            )) : (<h2>Task list is empty.</h2>)
           )}
       </div>
       {selectedTask && <TaskInfo task={selectedTask} onClose={() => setSelectedTask(null)}/>}
