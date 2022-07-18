@@ -10,7 +10,7 @@ const propsCompare = (prev: TaskInfoProps, next: TaskInfoProps) => {
 const TaskInfo:FC<TaskInfoProps> = memo(({task, onClose}) => {
 
   const {name, surname, ...restTaskData} = task;
-  console.log('render')
+
   return (
     <div data-testid="TaskInfo" className={styled.task}>
       <div data-testid="TaskInfoClose" className={styled.close} onClick={onClose}>X</div>
