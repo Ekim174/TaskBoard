@@ -31,6 +31,7 @@ const App:FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentTask, setCurrentTask] = useState<TaskTypes | null>(null);
   const [selectedTask, setSelectedTask] = useState<TaskTypes | null>(null);
+  const [selectedTaskStatus, setSelectedTaskStatus] = useState<string>('')
 
   const getTaskList = () => {
     const taskData = generateTaskData();
@@ -47,6 +48,7 @@ const App:FC = () => {
   const selectTaskHandler = (task: TaskTypes) => {
     if (selectedTask?.task_number !== task.task_number) {
       setSelectedTask(task);
+      setSelectedTaskStatus(task.status)
     }
   };
 
@@ -59,6 +61,11 @@ const App:FC = () => {
     const statusType = getStatusType(column);
     const currentIndex = sortedTaskList.indexOf(currentTask as TaskTypes);
     sortedTaskList[currentIndex].status = statusType as Status;
+
+    if (sortedTaskList[currentIndex].task_number === selectedTask?.task_number) {
+      setSelectedTaskStatus(sortedTaskList[currentIndex].status)
+    }
+
     sorting([...sortedTaskList]);
   };
 
@@ -121,7 +128,7 @@ const App:FC = () => {
             )) : (<h2>Task list is empty.</h2>)
           )}
       </div>
-      {selectedTask && <TaskInfo task={selectedTask} onClose={() => setSelectedTask(null)}/>}
+      {selectedTask && <TaskInfo status={selectedTaskStatus} task={selectedTask} onClose={() => setSelectedTask(null)}/>}
     </div>
   );
 }
