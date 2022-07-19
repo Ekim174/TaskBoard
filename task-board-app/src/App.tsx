@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useMemo, useState} from 'react';
 import TaskInfo from "./components/TaskInfo/TaskInfo";
 import cn from "classnames";
 import {Status, TaskTypes} from './App.types';
@@ -27,7 +27,7 @@ const getStatusType = (colum: string) => {
 
 const App:FC = () => {
 
-  const [sortedTaskList, setSortedTaskList] = useState<Array<TaskTypes>>([]);
+  const [taskList, setTaskList] = useState<Array<TaskTypes>>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentTask, setCurrentTask] = useState<TaskTypes | null>(null);
   const [selectedTask, setSelectedTask] = useState<TaskTypes | null>(null);
@@ -37,13 +37,9 @@ const App:FC = () => {
     const taskData = generateTaskData();
     setTimeout(() => {
       setIsLoading(false);
-      sorting(taskData);
-    }, 2000);
+      setTaskList(taskData);
+    }, 500);
   }
-
-  const dragOverHandler = (e: React.DragEvent<HTMLDivElement>)=> {
-    e.preventDefault();
-  };
 
   const selectTaskHandler = (task: TaskTypes) => {
     if (selectedTask?.task_number !== task.task_number) {
@@ -59,18 +55,18 @@ const App:FC = () => {
   const dropHandler = (e: React.DragEvent<HTMLDivElement>, column: string) => {
     e.preventDefault();
     const statusType = getStatusType(column);
-    const currentIndex = sortedTaskList.indexOf(currentTask as TaskTypes);
-    sortedTaskList[currentIndex].status = statusType as Status;
+    const currentIndex = taskList.indexOf(currentTask as TaskTypes);
+    taskList[currentIndex].status = statusType as Status;
 
-    if (sortedTaskList[currentIndex].task_number === selectedTask?.task_number) {
-      setSelectedTaskStatus(sortedTaskList[currentIndex].status)
+    if (taskList[currentIndex].task_number === selectedTask?.task_number) {
+      setSelectedTaskStatus(taskList[currentIndex].status)
     }
 
-    sorting([...sortedTaskList]);
+    setTaskList([...taskList]);
   };
 
-  const sorting = (data: Array<TaskTypes>) => {
-    const sortedList = data.sort((a: TaskTypes, b: TaskTypes) => {
+  const sortedList = useMemo(() => {
+    return taskList.sort((a: TaskTypes, b: TaskTypes) => {
       if (a.name > b.name) {
         return 1;
       }
@@ -84,9 +80,8 @@ const App:FC = () => {
         return -1;
       }
       return 0;
-    })
-    setSortedTaskList(sortedList);
-  };
+    });
+  }, [taskList]);
 
   useEffect(() => {
     getTaskList();
@@ -98,23 +93,22 @@ const App:FC = () => {
       <div className={styled.board}>
         {isLoading ?
           (<h2>Loading...</h2>) :
-          (sortedTaskList.length > 0 ?
+          (sortedList.length > 0 ?
             (boardColumns.map(column =>
               (<div
                 key={column}
                 className={styled.boardRow}
-                onDragOver={(e) => dragOverHandler(e)}
+                onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => dropHandler(e, column)}>
                 <div className={styled.columTitle}>
                   <h2>{column}</h2>
                 </div>
-                {sortedTaskList.map((task: TaskTypes) =>
+                {sortedList.map((task: TaskTypes) =>
                   task.status === column &&
                   (<div
                     key={task.task_number}
-                    onDragOver={(e) => dragOverHandler(e)}
+                    onDragOver={(e) => e.preventDefault()}
                     onDragStart={() => dragStartHandler(task)}
-                    onDrop={(e) => dropHandler(e, column)}
                     draggable
                     onClick={() => selectTaskHandler(task)}
                     className={

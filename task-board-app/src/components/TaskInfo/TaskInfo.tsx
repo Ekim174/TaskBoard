@@ -3,8 +3,8 @@ import { TaskInfoProps } from "./TaskInfo.types";
 
 import styled from "./TaskInfo.module.scss";
 
-const propsCompare = (prev: TaskInfoProps, next: TaskInfoProps) => {
-  return prev.task.task_number === next.task.task_number && prev.status === next.status;
+const propsCompare = (prevProps: TaskInfoProps, nextProps: TaskInfoProps) => {
+  return prevProps.task.task_number === nextProps.task.task_number && prevProps.status === nextProps.status;
 };
 
 const TaskInfo:FC<TaskInfoProps> = memo(({task, onClose}) => {
