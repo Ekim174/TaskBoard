@@ -1,6 +1,5 @@
 
 export interface TaskTypes  {
-  [key: string]: any,
   task_name: string,
   name: string,
   surname: string,

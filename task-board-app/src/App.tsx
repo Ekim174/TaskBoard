@@ -12,17 +12,11 @@ const importancePriority = {
   COULD: 3
 };
 
-const getStatusType = (colum: string) => {
-  switch (colum) {
-    case 'PLAN':
-      return Status.PLAN;
-    case 'IN PROGRESS':
-      return Status.IN_PROGRESS;
-    case 'TESTING':
-      return Status.TESTING;
-    case 'DONE':
-      return Status.DONE;
-  }
+const statusType: {[key: string]: Status}  = {
+  'PLAN': Status.PLAN,
+  'IN PROGRESS': Status.IN_PROGRESS,
+  'TESTING': Status.TESTING,
+  'DONE': Status.DONE,
 };
 
 const App:FC = () => {
@@ -54,13 +48,12 @@ const App:FC = () => {
 
   const dropHandler = (e: React.DragEvent<HTMLDivElement>, column: string) => {
     e.preventDefault();
-    const statusType = getStatusType(column);
     const currentIndex = taskList.indexOf(currentTask as TaskTypes);
-    taskList[currentIndex].status = statusType as Status;
+    taskList[currentIndex].status = statusType[column];
 
     if (taskList[currentIndex].task_number === selectedTask?.task_number) {
       setSelectedTaskStatus(taskList[currentIndex].status);
-    };
+    }
 
     setTaskList([...taskList]);
   };
