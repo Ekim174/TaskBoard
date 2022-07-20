@@ -122,7 +122,8 @@ const App:FC = () => {
             )) : (<h2>Task list is empty.</h2>)
           )}
       </div>
-      {selectedTask && <TaskInfo status={selectedTaskStatus} task={selectedTask} onClose={() => setSelectedTask(null)}/>}
+      {selectedTask &&
+        (<TaskInfo status={selectedTaskStatus} task={selectedTask} onClose={() => setSelectedTask(null)}/>)}
     </div>
   );
 }
