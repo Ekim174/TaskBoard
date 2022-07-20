@@ -59,8 +59,8 @@ const App:FC = () => {
     taskList[currentIndex].status = statusType as Status;
 
     if (taskList[currentIndex].task_number === selectedTask?.task_number) {
-      setSelectedTaskStatus(taskList[currentIndex].status)
-    }
+      setSelectedTaskStatus(taskList[currentIndex].status);
+    };
 
     setTaskList([...taskList]);
   };
@@ -113,7 +113,7 @@ const App:FC = () => {
                     onClick={() => selectTaskHandler(task)}
                     className={
                       cn(styled.task, styled[`${task.importance.toLowerCase()}`],
-                        selectedTask?.task_number === task.task_number && styled.active)
+                        selectedTask?.task_number === task.task_number && styled.taskActive)
                     }>
                     <span>{task.task_number}</span>
                     <span>{task.task_name}</span>
