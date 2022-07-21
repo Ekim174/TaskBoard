@@ -1,4 +1,4 @@
-import {TaskTypes} from 'App.types';
+import { TaskTypes } from 'types/taskTypes';
 
 export interface TaskInfoProps {
   task: TaskTypes,
