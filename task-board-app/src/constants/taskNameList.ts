@@ -1,0 +1,1 @@
+export const taskNameList = ['Feature', 'Bug Fix', 'Update', 'Research', 'Content'];

@@ -7,9 +7,9 @@ import { status } from "constants/status"
 
 import styled from "./BoardColumn.module.scss";
 
-const BoardColumn: FC<BoardColumnProps> = ({column ,sortedList}) => {
+const BoardColumn: FC<BoardColumnProps> = ({column, sortedList}) => {
 
-  const { state, actions } = useContext(BoardContext)
+  const { state, actions } = useContext(BoardContext);
   const { setSelectedStatus, setTaskList } = actions;
   const { currentTask, selectedTask } = state;
 
@@ -20,7 +20,7 @@ const BoardColumn: FC<BoardColumnProps> = ({column ,sortedList}) => {
     if (sortedList[currentIndex].task_number === selectedTask?.task_number) {
       setSelectedStatus(sortedList[currentIndex].status);
     }
-    setTaskList([...sortedList])
+    setTaskList([...sortedList]);
   };
 
   const filteredList = useMemo(() => {
@@ -29,6 +29,7 @@ const BoardColumn: FC<BoardColumnProps> = ({column ,sortedList}) => {
 
   return (
       <div
+        data-testid="BoardColumn"
         className={styled.boardRow}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => dropHandler(e, column)}>

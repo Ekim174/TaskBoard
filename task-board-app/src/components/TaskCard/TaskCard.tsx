@@ -6,20 +6,21 @@ import cn from "classnames";
 
 import styled from "./TaskCard.module.scss";
 
-const TaskCard:FC<TaskCardProps> = ({task}) => {
+const TaskCard: FC<TaskCardProps> = ({task}) => {
 
   const { state, actions } = useContext<BoardContextInterface>(BoardContext);
   const { selectedTask } = state;
-  const {setCurrentTask, setSelectedTask} = actions
+  const { setCurrentTask, setSelectedTask } = actions;
 
   const selectTaskHandler = (task: TaskTypes) => {
-    if (selectedTask?.task_number !== task.task_number) {
-        setSelectedTask(task)
+    if(selectedTask?.task_number !== task.task_number) {
+      setSelectedTask(task);
     }
   };
 
   return (
     <div
+      data-testid="TaskCard"
       draggable
       onDragOver={(e) => e.preventDefault()}
       onDragStart={() => setCurrentTask(task)}

@@ -1,5 +1,9 @@
 import { TaskTypes } from "types/taskTypes";
 
+export interface BoardProps {
+  taskList: TaskTypes[]
+}
+
 export type State = {
   selectedTask: null | TaskTypes,
   currentTask: null | TaskTypes,

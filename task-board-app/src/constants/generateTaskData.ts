@@ -1,25 +1,12 @@
 import { TaskTypes } from "types/taskTypes";
-import { status } from "constants/status"
-import { importance } from "constants/importance"
-
-export const boardColumns = ['PLAN', 'IN PROGRESS', 'TESTING','DONE'];
-export const importanceList = ['MUST', 'SHOULD', 'COULD'];
-const taskNameList = ['Feature', 'Bug Fix', 'Update', 'Research', 'Content'];
-const nameList = [
-  {name: 'Вуди', surname: 'Аллен'},
-  {name: 'Мэрил', surname: 'Стрип'},
-  {name: 'Роджер', surname: 'Дикинс'},
-  {name: 'Аль', surname: 'Пачино'},
-];
-
-const getRandomInt = (max: number) => {
-  return Math.floor(Math.random() * max);
-};
-
-const getRandomDate = () => {
-  const randomDate = new Date(Number(new Date()) - Math.floor(Math.random() * 1e10));
-  return randomDate.toLocaleDateString('en-GB')
-}
+import { status } from "constants/status";
+import { importance } from "constants/importance";
+import { boardColumns } from "./boardColumns";
+import { importanceList} from "./importanceList";
+import { taskNameList } from "./taskNameList";
+import { nameList } from "./nameList";
+import { getRandomInt } from "./getRandomInt";
+import { getRandomDate } from "./getRandomDate";
 
 export const generateTaskData = (): TaskTypes[] => {
   const tasksData: TaskTypes[] = [];

@@ -1,12 +1,11 @@
 import React, {FC, useEffect, useMemo, useReducer, useState} from "react";
 import TaskInfo from "components/TaskInfo/TaskInfo";
 import BoardColumn from "components/BoardColumn/BoardColumn";
-import { Reducer, State, ActionKind, Action } from "./Board.types";
+import {Reducer, State, ActionKind, Action, BoardProps} from "./Board.types";
 import { TaskTypes } from "types/taskTypes";
 import { BoardContext } from "context/boardContext";
 import { importancePriority } from "constants/importancePriority";
 import { boardColumns } from "constants/boardColumns";
-import { generateTaskData } from "constants/tasksData";
 
 import styled from "./Board.module.scss";
 
@@ -30,7 +29,7 @@ const initialState: State = {
   taskList: []
 };
 
-const Board: FC = () => {
+const Board: FC<BoardProps> = ({taskList}) => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [state, dispatch] = useReducer<Reducer<State, Action>>(reducer, initialState);
@@ -41,14 +40,6 @@ const Board: FC = () => {
     setSelectedStatus: (value: string) => dispatch({type: ActionKind.setSelectedStatus, value}),
     setTaskList: (value: TaskTypes[]) => dispatch({type: ActionKind.setTaskList, value}),
   }), []);
-
-  const getTaskList = () => {
-    const taskData = generateTaskData();
-    setTimeout(() => {
-      setIsLoading(false);
-      actions.setTaskList(taskData)
-    }, 500);
-  }
 
   const sortedList = useMemo(() => {
     return state.taskList.sort((a: TaskTypes, b: TaskTypes) => {
@@ -69,12 +60,13 @@ const Board: FC = () => {
   }, [state.taskList]);
 
   useEffect(() => {
-    getTaskList();
+    setIsLoading(false)
+    actions.setTaskList(taskList)
   }, []);
 
   return (
     <BoardContext.Provider value={{state, actions}}>
-      <div className={styled.container}>
+      <div data-testid="Board" className={styled.container}>
         <h1>Task Board</h1>
         <div className={styled.board}>
           {isLoading ? (<h2>Loading...</h2>) :
