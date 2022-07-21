@@ -1,26 +1,13 @@
 import React, {FC, useEffect, useMemo, useReducer, useState} from "react";
 import TaskInfo from "components/TaskInfo/TaskInfo";
 import BoardColumn from "components/BoardColumn/BoardColumn";
-import {Reducer, State, ActionKind, Action, BoardProps} from "./Board.types";
+import { Reducer, State, ActionKind, Action, BoardProps } from "./Board.types";
 import { TaskTypes } from "types/taskTypes";
-import { BoardContext } from "context/boardContext";
+import { BoardContext, boardReducer } from "context/boardContext/boardContext";
 import { importancePriority } from "constants/importancePriority";
 import { boardColumns } from "constants/boardColumns";
 
 import styled from "./Board.module.scss";
-
-const reducer = (state: State, action: Action) :State => {
-  switch (action.type) {
-    case ActionKind.setSelectedTask:
-      return {...state, selectedTask: action.value} as State;
-    case ActionKind.setCurrentTask:
-      return {...state, currentTask: action.value} as State;
-    case ActionKind.setSelectedStatus:
-      return {...state, selectedTaskStatus: action.value} as State;
-    case ActionKind.setTaskList:
-      return {...state, taskList: action.value} as State;
-  }
-}
 
 const initialState: State = {
   selectedTask: null,
@@ -31,8 +18,7 @@ const initialState: State = {
 
 const Board: FC<BoardProps> = ({taskList}) => {
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [state, dispatch] = useReducer<Reducer<State, Action>>(reducer, initialState);
+  const [state, dispatch] = useReducer<Reducer<State, Action>>(boardReducer, initialState);
 
   const actions = useMemo(() => ({
     setSelectedTask: (value: TaskTypes | null) => dispatch({type: ActionKind.setSelectedTask, value}),
@@ -60,28 +46,23 @@ const Board: FC<BoardProps> = ({taskList}) => {
   }, [state.taskList]);
 
   useEffect(() => {
-    setIsLoading(false)
     actions.setTaskList(taskList)
   }, []);
 
   return (
     <BoardContext.Provider value={{state, actions}}>
-      <div data-testid="Board" className={styled.container}>
-        <h1>Task Board</h1>
-        <div className={styled.board}>
-          {isLoading ? (<h2>Loading...</h2>) :
-          (sortedList.length > 0 ?
-            (boardColumns.map(column => (<BoardColumn key={column} column={column} sortedList={sortedList}/>))) :
-            (<h2>Task list is empty.</h2>)
-          )}
-        </div>
-        {state.selectedTask &&
-          (<TaskInfo
-            status={state.selectedTaskStatus}
-            task={state.selectedTask}
-            onClose={() => actions.setSelectedTask(null)}/>
-          )}
+      <div data-testid="Board"  className={styled.board}>
+        {sortedList.length > 0 ?
+          (boardColumns.map(column => (<BoardColumn key={column} column={column} sortedList={sortedList}/>))) :
+          (<h2>Task list is empty.</h2>)
+        }
       </div>
+      {state.selectedTask &&
+        (<TaskInfo
+          status={state.selectedTaskStatus}
+          task={state.selectedTask}
+          onClose={() => actions.setSelectedTask(null)}/>
+        )}
     </BoardContext.Provider>
   )
 }

@@ -1,5 +1,6 @@
 import React, { FC, useContext } from "react";
-import { BoardContext, BoardContextInterface } from "context/boardContext";
+import { BoardContext } from "context/boardContext/boardContext";
+import { BoardContextInterface } from "context/boardContext/boartContext.types";
 import { TaskCardProps } from "./TaskCard.types";
 import { TaskTypes } from "types/taskTypes";
 import cn from "classnames";

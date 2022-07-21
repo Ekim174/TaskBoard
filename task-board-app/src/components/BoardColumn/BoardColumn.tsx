@@ -2,7 +2,7 @@ import React, {FC, useMemo, useContext} from "react";
 import TaskCard from "components/TaskCard/TaskCard";
 import { TaskTypes } from "types/taskTypes";
 import { BoardColumnProps } from "./BoardColumn.types";
-import { BoardContext } from "context/boardContext";
+import { BoardContext } from "context/boardContext/boardContext";
 import { status } from "constants/status"
 
 import styled from "./BoardColumn.module.scss";
@@ -10,8 +10,8 @@ import styled from "./BoardColumn.module.scss";
 const BoardColumn: FC<BoardColumnProps> = ({column, sortedList}) => {
 
   const { state, actions } = useContext(BoardContext);
-  const { setSelectedStatus, setTaskList } = actions;
   const { currentTask, selectedTask } = state;
+  const { setSelectedStatus, setTaskList } = actions;
 
   const dropHandler = (e: React.DragEvent<HTMLDivElement>, column: string) => {
     e.preventDefault();

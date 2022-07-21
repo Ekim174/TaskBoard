@@ -1,8 +1,7 @@
-import {createContext} from "react";
-import { State } from "components/Board/Board.types"
 import { TaskTypes } from "types/taskTypes";
+import { State } from "components/Board/Board.types";
 
-interface BoardContextActions {
+export interface BoardContextActions {
   setSelectedTask: (value: TaskTypes | null) => void,
   setCurrentTask: (value: TaskTypes) => void,
   setSelectedStatus: (value: string) => void,
@@ -13,5 +12,3 @@ export interface BoardContextInterface {
   state: State,
   actions: BoardContextActions,
 }
-
-export const BoardContext = createContext<BoardContextInterface>({} as BoardContextInterface);
