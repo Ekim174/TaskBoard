@@ -6,8 +6,8 @@ import { Reducer, State, ActionKind, Action } from "reducers/boardReducer/boardR
 import { TaskTypes } from "types/taskTypes";
 import { BoardContext } from "context/boardContext";
 import { boardReducer } from "reducers/boardReducer";
-import { importancePriority } from "constants/importancePriority";
 import { boardColumns } from "constants/boardColumns";
+import sortingList from "constants/sortingList";
 
 import styled from "./Board.module.scss";
 
@@ -30,21 +30,7 @@ const Board: FC<BoardProps> = ({taskList}) => {
   }), []);
 
   const sortedList = useMemo(() => {
-    return state.taskList.sort((a: TaskTypes, b: TaskTypes) => {
-      if (a.name > b.name) {
-        return 1;
-      }
-      if (a.name < b.name) {
-        return -1;
-      }
-      if (importancePriority[a.importance] > importancePriority[b.importance]) {
-        return 1;
-      }
-      if (importancePriority[a.importance] < importancePriority[b.importance]) {
-        return -1;
-      }
-      return 0;
-    });
+    return sortingList(state.taskList);
   }, [state.taskList]);
 
   useEffect(() => {
