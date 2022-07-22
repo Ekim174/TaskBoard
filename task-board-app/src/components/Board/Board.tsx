@@ -1,9 +1,11 @@
-import React, {FC, useEffect, useMemo, useReducer, useState} from "react";
+import React, {FC, useEffect, useMemo, useReducer } from "react";
 import TaskInfo from "components/TaskInfo/TaskInfo";
 import BoardColumn from "components/BoardColumn/BoardColumn";
-import { Reducer, State, ActionKind, Action, BoardProps } from "./Board.types";
+import { BoardProps } from "./Board.types";
+import { Reducer, State, ActionKind, Action } from "reducers/boardReducer/boardReducersTypes";
 import { TaskTypes } from "types/taskTypes";
-import { BoardContext, boardReducer } from "context/boardContext/boardContext";
+import { BoardContext } from "context/boardContext";
+import { boardReducer } from "reducers/boardReducer";
 import { importancePriority } from "constants/importancePriority";
 import { boardColumns } from "constants/boardColumns";
 

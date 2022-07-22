@@ -1,6 +1,6 @@
 import React, { FC, useContext } from "react";
-import { BoardContext } from "context/boardContext/boardContext";
-import { BoardContextInterface } from "context/boardContext/boartContext.types";
+import { BoardContext } from "context/boardContext";
+import { BoardContextInterface } from "context/boardContext/boartContextTypes";
 import { TaskCardProps } from "./TaskCard.types";
 import { TaskTypes } from "types/taskTypes";
 import cn from "classnames";
@@ -10,11 +10,10 @@ import styled from "./TaskCard.module.scss";
 const TaskCard: FC<TaskCardProps> = ({task}) => {
 
   const { state, actions } = useContext<BoardContextInterface>(BoardContext);
-  const { selectedTask } = state;
   const { setCurrentTask, setSelectedTask } = actions;
 
   const selectTaskHandler = (task: TaskTypes) => {
-    if(selectedTask?.task_number !== task.task_number) {
+    if(state.selectedTask?.task_number !== task.task_number) {
       setSelectedTask(task);
     }
   };
@@ -27,7 +26,7 @@ const TaskCard: FC<TaskCardProps> = ({task}) => {
       onDragStart={() => setCurrentTask(task)}
       onClick={() => selectTaskHandler(task)}
       className={cn(styled.task, styled[`${task.importance.toLowerCase()}`],
-        selectedTask?.task_number === task.task_number && styled.taskActive)
+        state.selectedTask?.task_number === task.task_number && styled.active)
       }>
       <span>{task.task_number}</span>
       <span>{task.task_name}</span>

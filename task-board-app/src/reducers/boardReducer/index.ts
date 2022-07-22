@@ -1,6 +1,4 @@
-import { createContext } from "react";
-import { Action, ActionKind, State } from "components/Board/Board.types";
-import { BoardContextInterface } from "./boartContext.types";
+import {Action, ActionKind, State} from "./boardReducersTypes";
 
 export const boardReducer = (state: State, action: Action) :State => {
   switch (action.type) {
@@ -14,5 +12,3 @@ export const boardReducer = (state: State, action: Action) :State => {
       return {...state, taskList: action.value} as State;
   }
 }
-
-export const BoardContext = createContext<BoardContextInterface>({} as BoardContextInterface);

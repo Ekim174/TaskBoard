@@ -2,7 +2,7 @@ import React, {FC, useMemo, useContext} from "react";
 import TaskCard from "components/TaskCard/TaskCard";
 import { TaskTypes } from "types/taskTypes";
 import { BoardColumnProps } from "./BoardColumn.types";
-import { BoardContext } from "context/boardContext/boardContext";
+import { BoardContext } from "context/boardContext";
 import { status } from "constants/status"
 
 import styled from "./BoardColumn.module.scss";
@@ -10,14 +10,13 @@ import styled from "./BoardColumn.module.scss";
 const BoardColumn: FC<BoardColumnProps> = ({column, sortedList}) => {
 
   const { state, actions } = useContext(BoardContext);
-  const { currentTask, selectedTask } = state;
   const { setSelectedStatus, setTaskList } = actions;
 
   const dropHandler = (e: React.DragEvent<HTMLDivElement>, column: string) => {
     e.preventDefault();
-    const currentIndex = sortedList.indexOf(currentTask as TaskTypes);
+    const currentIndex = sortedList.indexOf(state.currentTask as TaskTypes);
     sortedList[currentIndex].status = status[column];
-    if (sortedList[currentIndex].task_number === selectedTask?.task_number) {
+    if (sortedList[currentIndex].task_number === state.selectedTask?.task_number) {
       setSelectedStatus(sortedList[currentIndex].status);
     }
     setTaskList([...sortedList]);
@@ -30,7 +29,7 @@ const BoardColumn: FC<BoardColumnProps> = ({column, sortedList}) => {
   return (
       <div
         data-testid="BoardColumn"
-        className={styled.boardRow}
+        className={styled.boardColumn}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => dropHandler(e, column)}>
         <div className={styled.columTitle}><h2>{column}</h2></div>

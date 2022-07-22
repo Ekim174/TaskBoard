@@ -1,5 +1,5 @@
 import { TaskTypes } from "types/taskTypes";
-import { State } from "components/Board/Board.types";
+import { State } from "reducers/boardReducer/boardReducersTypes";
 
 export interface BoardContextActions {
   setSelectedTask: (value: TaskTypes | null) => void,
