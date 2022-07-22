@@ -1,4 +1,4 @@
-import sortingList from "functions/sortingList/sortingList";
+import sortingList from "helpers/sortingList/sortingList";
 import fakeTaskList from "constants/fakeTaskList"
 
 const equalList = [

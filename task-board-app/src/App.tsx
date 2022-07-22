@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import Board from "./components/Board/Board";
 import { TaskTypes } from "./types/taskTypes";
-import generateTaskData from "functions/generateTaskData";
+import generateTaskData from "helpers/generateTaskData";
 import styled from "./App.module.scss";
 
 const App: FC = () => {

@@ -7,7 +7,7 @@ import { TaskTypes } from "types/taskTypes";
 import { BoardContext } from "context/boardContext";
 import { boardReducer } from "reducers/boardReducer";
 import { boardColumns } from "constants/boardColumns";
-import sortingList from "functions/sortingList/sortingList";
+import sortingList from "helpers/sortingList/sortingList";
 
 import styled from "./Board.module.scss";
 

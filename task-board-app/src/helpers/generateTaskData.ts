@@ -1,10 +1,10 @@
 import { TaskTypes } from "types/taskTypes";
 import { status } from "constants/status";
 import { importance } from "constants/importance";
-import { boardColumns } from "../constants/boardColumns";
-import { importanceList} from "../constants/importanceList";
-import { taskNameList } from "../constants/taskNameList";
-import { nameList } from "../constants/nameList";
+import { boardColumns } from "constants/boardColumns";
+import { importanceList} from "constants/importanceList";
+import { taskNameList } from "constants/taskNameList";
+import { nameList } from "constants/nameList";
 import getRandomInt from "./getRandomInt";
 import getRandomDate from "./getRandomDate";
 
