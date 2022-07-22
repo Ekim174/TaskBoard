@@ -1,4 +1,4 @@
-import sortingList from "constants/sortingList";
+import sortingList from "functions/sortingList/sortingList";
 import fakeTaskList from "constants/fakeTaskList"
 
 const taskList2 = [

@@ -1,5 +1,5 @@
 import {TaskTypes} from "types/taskTypes";
-import {importancePriority} from "./importancePriority";
+import {importancePriority} from "constants/importancePriority";
 
 const sortingList = (taskList: TaskTypes[]) => {
   return taskList.sort((a: TaskTypes, b: TaskTypes) => {

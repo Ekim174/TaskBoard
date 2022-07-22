@@ -1,14 +1,14 @@
 import { TaskTypes } from "types/taskTypes";
 import { status } from "constants/status";
 import { importance } from "constants/importance";
-import { boardColumns } from "./boardColumns";
-import { importanceList} from "./importanceList";
-import { taskNameList } from "./taskNameList";
-import { nameList } from "./nameList";
-import { getRandomInt } from "./getRandomInt";
-import { getRandomDate } from "./getRandomDate";
+import { boardColumns } from "../constants/boardColumns";
+import { importanceList} from "../constants/importanceList";
+import { taskNameList } from "../constants/taskNameList";
+import { nameList } from "../constants/nameList";
+import getRandomInt from "./getRandomInt";
+import getRandomDate from "./getRandomDate";
 
-export const generateTaskData = (): TaskTypes[] => {
+const generateTaskData = (): TaskTypes[] => {
   const tasksData: TaskTypes[] = [];
   for (let i = 1; i <= 15; i += 1) {
     const number = i < 10 ? `0${i}` : i;
@@ -28,3 +28,5 @@ export const generateTaskData = (): TaskTypes[] => {
   }
   return tasksData;
 }
+
+export default generateTaskData;

@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import Board from "./components/Board/Board";
 import { TaskTypes } from "./types/taskTypes";
-import { generateTaskData } from "constants/generateTaskData";
+import generateTaskData from "functions/generateTaskData";
 import styled from "./App.module.scss";
 
 const App: FC = () => {
@@ -27,6 +27,6 @@ const App: FC = () => {
       {isLoading ? (<h2>Loading...</h2>) : (<Board taskList={taskList}/>)}
     </div>
   )
-}
+};
 
 export default App;
