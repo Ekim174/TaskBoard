@@ -1,8 +1,9 @@
 import sortingList from "functions/sortingList/sortingList";
 import fakeTaskList from "constants/fakeTaskList"
 
-const taskList2 = [
+const equalList = [
   {...fakeTaskList[2]},
+  {...fakeTaskList[5]},
   {...fakeTaskList[4]},
   {...fakeTaskList[3]},
   {...fakeTaskList[1]},
@@ -10,5 +11,5 @@ const taskList2 = [
 ]
 
 test('sort', () => {
-  expect(sortingList(fakeTaskList)).toEqual(taskList2)
+  expect(sortingList(fakeTaskList)).toEqual(equalList)
 });

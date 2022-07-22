@@ -23,7 +23,7 @@ describe('Board', () => {
     setUp(fakeTaskList)
     expect(screen.queryByText(/Task list is empty/i)).toBeNull()
     expect(screen.getAllByTestId("BoardColumn")).toHaveLength(4)
-    expect(screen.getAllByTestId("TaskCard")).toHaveLength(5)
+    expect(screen.getAllByTestId("TaskCard")).toHaveLength(6)
   });
 
   test('change and remove selected task', () => {

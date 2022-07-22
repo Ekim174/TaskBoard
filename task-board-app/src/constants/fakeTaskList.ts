@@ -48,6 +48,15 @@ const fakeTaskList: TaskTypes[] = [
     importance: ImportanceTypes.SHOULD,
     date: "25/06/2022"
   },
+  {
+    task_number: "TSK-0006",
+    task_name: "Bug Fix",
+    name: "Аль",
+    surname: "Пачино",
+    status: StatusTypes.DONE,
+    importance: ImportanceTypes.MUST,
+    date: "25/06/2022"
+  },
 ];
 
 export default fakeTaskList;
