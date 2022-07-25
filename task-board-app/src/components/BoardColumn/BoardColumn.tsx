@@ -15,7 +15,7 @@ const BoardColumn: FC<BoardColumnProps> = ({column, sortedList}) => {
   const dropHandler = (e: React.DragEvent<HTMLDivElement>, column: string) => {
     e.preventDefault();
     const currentIndex = sortedList.indexOf(boardStates.currentTask as TaskTypes);
-    sortedList[currentIndex].status = StatusTypes[column as keyof typeof StatusTypes];
+    sortedList[currentIndex].status = StatusTypes[column as StatusTypes];
     if (sortedList[currentIndex].task_number === boardStates.selectedTask?.task_number) {
       setSelectedStatus(sortedList[currentIndex].status);
     }

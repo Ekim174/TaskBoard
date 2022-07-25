@@ -20,8 +20,8 @@ const generateTaskData = (): TaskTypes[] => {
       task_name: taskNameList[getRandomInt(taskNameList.length)],
       name: nameList[nameRandomInt].name,
       surname: nameList[nameRandomInt].surname,
-      status: StatusTypes[statusRandomInt as keyof typeof StatusTypes],
-      importance: ImportanceTypes[importanceRandomInt as keyof typeof ImportanceTypes],
+      status: StatusTypes[statusRandomInt as StatusTypes],
+      importance: ImportanceTypes[importanceRandomInt as ImportanceTypes],
       date: getRandomDate(),
     }
     tasksData.push(listUnit);
