@@ -20,7 +20,7 @@ const initialState: State = {
 
 const Board: FC<BoardProps> = ({taskList}) => {
 
-  const [state, dispatch] = useReducer<Reducer<State, Action>>(boardReducer, initialState);
+  const [boardStates, dispatch] = useReducer<Reducer<State, Action>>(boardReducer, initialState);
 
   const actions = useMemo(() => ({
     setSelectedTask: (value: TaskTypes | null) => dispatch({type: ActionKind.setSelectedTask, value}),
@@ -30,25 +30,25 @@ const Board: FC<BoardProps> = ({taskList}) => {
   }), []);
 
   const sortedList = useMemo(() => {
-    return sortingList(state.taskList);
-  }, [state.taskList]);
+    return sortingList(boardStates.taskList);
+  }, [boardStates.taskList]);
 
   useEffect(() => {
     actions.setTaskList(taskList)
-  }, []);
+  }, [actions, taskList]);
 
   return (
-    <BoardContext.Provider value={{state, actions}}>
+    <BoardContext.Provider value={{boardStates, actions}}>
       <div data-testid="Board"  className={styled.board}>
         {sortedList.length > 0 ?
           (boardColumns.map(column => (<BoardColumn key={column} column={column} sortedList={sortedList}/>))) :
           (<h2>Task list is empty.</h2>)
         }
       </div>
-      {state.selectedTask &&
+      {boardStates.selectedTask &&
         (<TaskInfo
-          status={state.selectedTaskStatus}
-          task={state.selectedTask}
+          status={boardStates.selectedTaskStatus}
+          task={boardStates.selectedTask}
           onClose={() => actions.setSelectedTask(null)}/>
         )}
     </BoardContext.Provider>

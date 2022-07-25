@@ -1,12 +1,12 @@
 import { TaskTypes } from "types/taskTypes";
-import { status } from "constants/status";
-import { importance } from "constants/importance";
 import { boardColumns } from "constants/boardColumns";
 import { importanceList} from "constants/importanceList";
 import { taskNameList } from "constants/taskNameList";
 import { nameList } from "constants/nameList";
 import getRandomInt from "./getRandomInt";
 import getRandomDate from "./getRandomDate";
+import { StatusTypes } from "types/statusTypes";
+import { ImportanceTypes } from "types/importanceTypes";
 
 const generateTaskData = (): TaskTypes[] => {
   const tasksData: TaskTypes[] = [];
@@ -20,8 +20,8 @@ const generateTaskData = (): TaskTypes[] => {
       task_name: taskNameList[getRandomInt(taskNameList.length)],
       name: nameList[nameRandomInt].name,
       surname: nameList[nameRandomInt].surname,
-      status: status[statusRandomInt],
-      importance: importance[importanceRandomInt],
+      status: StatusTypes[statusRandomInt as keyof typeof StatusTypes],
+      importance: ImportanceTypes[importanceRandomInt as keyof typeof ImportanceTypes],
       date: getRandomDate(),
     }
     tasksData.push(listUnit);

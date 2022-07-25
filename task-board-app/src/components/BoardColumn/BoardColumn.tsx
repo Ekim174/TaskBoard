@@ -3,20 +3,20 @@ import TaskCard from "components/TaskCard/TaskCard";
 import { TaskTypes } from "types/taskTypes";
 import { BoardColumnProps } from "./BoardColumn.types";
 import { BoardContext } from "context/boardContext";
-import { status } from "constants/status"
+import { StatusTypes } from "types/statusTypes";
 
 import styled from "./BoardColumn.module.scss";
 
 const BoardColumn: FC<BoardColumnProps> = ({column, sortedList}) => {
 
-  const { state, actions } = useContext(BoardContext);
+  const { boardStates, actions } = useContext(BoardContext);
   const { setSelectedStatus, setTaskList } = actions;
 
   const dropHandler = (e: React.DragEvent<HTMLDivElement>, column: string) => {
     e.preventDefault();
-    const currentIndex = sortedList.indexOf(state.currentTask as TaskTypes);
-    sortedList[currentIndex].status = status[column];
-    if (sortedList[currentIndex].task_number === state.selectedTask?.task_number) {
+    const currentIndex = sortedList.indexOf(boardStates.currentTask as TaskTypes);
+    sortedList[currentIndex].status = StatusTypes[column as keyof typeof StatusTypes];
+    if (sortedList[currentIndex].task_number === boardStates.selectedTask?.task_number) {
       setSelectedStatus(sortedList[currentIndex].status);
     }
     setTaskList([...sortedList]);

@@ -9,11 +9,11 @@ import styled from "./TaskCard.module.scss";
 
 const TaskCard: FC<TaskCardProps> = ({task}) => {
 
-  const { state, actions } = useContext<BoardContextInterface>(BoardContext);
+  const { boardStates, actions } = useContext<BoardContextInterface>(BoardContext);
   const { setCurrentTask, setSelectedTask } = actions;
 
   const selectTaskHandler = (task: TaskTypes) => {
-    if(state.selectedTask?.task_number !== task.task_number) {
+    if(boardStates.selectedTask?.task_number !== task.task_number) {
       setSelectedTask(task);
     }
   };
@@ -26,7 +26,7 @@ const TaskCard: FC<TaskCardProps> = ({task}) => {
       onDragStart={() => setCurrentTask(task)}
       onClick={() => selectTaskHandler(task)}
       className={cn(styled.task, styled[`${task.importance.toLowerCase()}`],
-        state.selectedTask?.task_number === task.task_number && styled.active)
+        boardStates.selectedTask?.task_number === task.task_number && styled.active)
       }>
       <span>{task.task_number}</span>
       <span>{task.task_name}</span>

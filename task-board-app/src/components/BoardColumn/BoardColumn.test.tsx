@@ -3,13 +3,11 @@ import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react';
 import BoardColumn from './BoardColumn';
 import { TaskTypes } from "types/taskTypes";
-import { StatusTypes } from "types/statusTypes";
-import { ImportanceTypes } from "types/importanceTypes";
 import {BoardContext} from "context/boardContext";
 import { State } from "reducers/boardReducer/boardReducersTypes";
 import fakeTaskList from "constants/fakeTaskList";
 
-const state: State = {
+const boardStates: State = {
   selectedTask: null,
   currentTask: null,
   selectedTaskStatus: '',
@@ -25,8 +23,8 @@ const actions = {
 
 const setUp = (sortedList: TaskTypes[]) => {
   render(
-    <BoardContext.Provider value={{state, actions}}>
-      <BoardColumn column={'IN PROGRESS'} sortedList={sortedList} />
+    <BoardContext.Provider value={{boardStates, actions}}>
+      <BoardColumn column={'IN_PROGRESS'} sortedList={sortedList} />
     </BoardContext.Provider>
   );
 };
@@ -35,7 +33,7 @@ describe('BoardColumn', () => {
 
   test('should render correctly', () => {
     setUp(fakeTaskList)
-    expect(screen.getByText(/IN PROGRESS/i)).toBeInTheDocument()
+    expect(screen.getByText(/IN_PROGRESS/i)).toBeInTheDocument()
     expect(screen.getByTestId('BoardColumn')).toHaveClass('boardColumn')
   });
 

@@ -9,6 +9,6 @@ export interface BoardContextActions {
 }
 
 export interface BoardContextInterface {
-  state: State,
+  boardStates: State,
   actions: BoardContextActions,
 }

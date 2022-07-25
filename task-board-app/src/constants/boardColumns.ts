@@ -1,1 +1,1 @@
-export const boardColumns = ['PLAN', 'IN PROGRESS', 'TESTING','DONE'];
+export const boardColumns = ['PLAN', 'IN_PROGRESS', 'TESTING','DONE'];

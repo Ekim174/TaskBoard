@@ -28,7 +28,7 @@ const taskMust: TaskTypes = {
     date: "25/06/2022"
 };
 
-const state: State = {
+const boardStates: State = {
   selectedTask: taskMust,
   currentTask: null,
   selectedTaskStatus: '',
@@ -44,7 +44,7 @@ const actions = {
 
 const setUp = (task: TaskTypes) => {
   render(
-    <BoardContext.Provider value={{state, actions}}>
+    <BoardContext.Provider value={{boardStates, actions}}>
       <TaskCard task={task} />
     </BoardContext.Provider>
   );
